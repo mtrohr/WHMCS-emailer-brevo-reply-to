@@ -72,12 +72,12 @@ class HttpTransport
         if ($body === false) {
             $errno = curl_errno($ch);
             $error = curl_error($ch);
-            curl_close($ch);
+            unset($ch);
             throw new TransportException('cURL error ' . $errno . ': ' . $error);
         }
 
         $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        unset($ch);
 
         return array(
             'status' => $status,
